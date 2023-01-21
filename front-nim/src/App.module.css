@@ -1,0 +1,11 @@
+
+body{
+  background-color: rgb(93,93,93);
+  
+}
+.hidden{
+  display:none;
+}
+*{
+  box-sizing: border-box;
+}

@@ -1,0 +1,16 @@
+
+.match{
+   
+    width:70px;
+}
+.hidden{
+    visibility: hidden;
+}
+.match-select{
+    margin-bottom: 5rem;
+}
+.match:hover{
+    width:80px;
+    cursor: pointer;
+  
+}

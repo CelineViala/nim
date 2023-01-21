@@ -1,0 +1,17 @@
+.matches-box{
+    display: flex;
+    justify-content: center;
+    align-items:flex-end;
+    gap: 2rem;
+    margin-bottom: 5rem;
+     min-height:600px;
+  }
+  .match-select{
+    margin-bottom: 5rem;
+}
+  .hidden{
+    display:none;
+  }
+  .game{
+    min-height:600px;
+  }
