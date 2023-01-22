@@ -29,12 +29,6 @@ function Match({ id }) {
     const [isActive, setIsActive] = useState(false);
     const [mustDisappear, setMustDisappear] = useState(false);
 
-    // const handleClick = (e) => {
-    //     if (!onClicKMatch(e)) return;
-    //     if (gameData.socket.id !== gameData.currentPlayer.id) return;
-    //     emitSelectedMatch(textRef, !isActive);
-    // };
-
     useEffect(() => {
         listenDeco(setMustDisappear, setIsActive);
         listenSelectedMatch(textRef, setIsActive);

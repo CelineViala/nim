@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import ErrorBoundary from './ErrorBoundary'
+import ErrorBoundary from './ErrorBoundary';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import DataGameContextProvider from './contexts/DataGame'
+import DataGameContextProvider from './contexts/DataGame';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <ErrorBoundary>
- <DataGameContextProvider>
-   <App />
- </DataGameContextProvider>
-  
-</ErrorBoundary>
-  // </React.StrictMode>
+    // <React.StrictMode>
+    <ErrorBoundary>
+        <DataGameContextProvider>
+            <App />
+        </DataGameContextProvider>
+
+    </ErrorBoundary>,
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
