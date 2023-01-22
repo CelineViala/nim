@@ -9,6 +9,7 @@ const DataGameContext = createContext({
         currentPlayer: null,
         indexPlayer: null,
         message: '',
+        nbMatch: 0,
         adv: {},
         pseudo: '',
         waiting: false,
@@ -27,6 +28,7 @@ const DataGameContext = createContext({
     setPseudo: () => {},
     setWaiting: () => {},
     setboardHidden: () => {},
+    setNbMatch: () => {},
 
 });
 export { DataGameContext };
@@ -37,6 +39,7 @@ const INITIAL_GAME = {
     socket: io.connect('http://localhost:5000'),
     indexPlayer: null,
     message: '',
+    nbMatch: 0,
     boardHidden: true,
     adv: {},
     pseudo: '',
@@ -52,6 +55,8 @@ const gameReducer = (state, action) => {
     switch (action.type) {
     case 'SET_PLAYERS':
         return { ...state, players: action.value };
+    case 'SET_NBMATCH':
+        return { ...state, nbMatch: action.value };
     case 'SET_PSEUDO':
         return { ...state, pseudo: action.value };
     case 'SET_ADV':
@@ -145,6 +150,12 @@ function DataGameContextProvider({ children }) {
             value: boardHidden,
         });
     };
+    const setNbMatch = (nbMatch) => {
+        dispatch({
+            type: 'SET_NBMATCH',
+            value: nbMatch,
+        });
+    };
 
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     const value = {
@@ -155,6 +166,7 @@ function DataGameContextProvider({ children }) {
         setIndexPlayer,
         setSocket,
         setMessage,
+        setNbMatch,
         setFinalChoice,
         setAdv,
         setPseudo,

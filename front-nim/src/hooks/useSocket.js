@@ -9,20 +9,26 @@ function useSocket(socket) {
         setChoosenMatches,
         setIndexPlayer,
         setAdv,
+        setNbMatch,
         setboardHidden,
         setWaiting,
         setMessage,
         setFinalChoice,
     } = useContext(DataGameContext);
 
-    const listenDeco = (setMustDisappearMatch, setIsActiveMatch) => {
+    const listenDeco = () => {
         socket.on('deco_adv', (data) => {
             setChoosenMatches([]);
             setFinalChoice([]);
             setboardHidden(true);
             setAdv({});
+            setNbMatch(0);
             setMessage('Cliquer sur Jouer pour recommencer une partie.');
             alert(data.msg);
+        });
+    };
+    const listenDecoMatch = (setMustDisappearMatch, setIsActiveMatch) => {
+        socket.on('deco_adv', () => {
             if (setMustDisappearMatch) setMustDisappearMatch(false);
             if (setIsActiveMatch) setIsActiveMatch(false);
         });
@@ -81,8 +87,16 @@ function useSocket(socket) {
             if (ref.current.getAttribute('id') === data.match) setIsActive(data.active);
         });
     };
+    const listenUpdateNbMatch = () => {
+        socket.on('updateNbMatch', (data) => {
+            setNbMatch(gameData.nbMatch + Number(data.nb));
+        });
+    };
     const emitPlay = () => {
         socket.emit('play', { pseudo: gameData.pseudo });
+    };
+    const emitNbMatch = (n) => {
+        socket.emit('nbMatch', { adv: gameData.adv, nb: n });
     };
     return {
         listenDeco,
@@ -90,12 +104,15 @@ function useSocket(socket) {
         listenInfoTurn,
         emitUpdateTurn,
         listenWait,
+        listenUpdateNbMatch,
         listenPlay,
+        listenDecoMatch,
         emitPlay,
         emitSelectedMatch,
         emitIdToUndisplayMatch,
         listenSelectedMatch,
         listenUndisplayMatch,
+        emitNbMatch,
     };
 }
 

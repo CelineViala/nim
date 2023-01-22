@@ -12,6 +12,7 @@ function useGame() {
     const {
         emitUpdateTurn,
         emitSelectedMatch,
+        emitNbMatch,
     } = useSocket(gameData.socket);
     const handleSelectedMatches = (e) => {
         let copy = [...gameData.choosenMatches];
@@ -40,6 +41,8 @@ function useGame() {
             ids.push(match.getAttribute('id'));
         });
         setFinalChoice(ids);
+        emitNbMatch(gameData.choosenMatches.length);
+
         emitUpdateTurn();
     };
     const handleClickMatch = (e, ref, isActive) => {
@@ -48,7 +51,13 @@ function useGame() {
         emitSelectedMatch(ref, isActive);
     };
     const setMessageTurn = () => {
-        if (gameData.currentPlayer) {
+        if (gameData.nbMatch === 10) { // the one who take the last match wins
+            if (gameData.currentPlayer.id !== gameData.socket.id) {
+                setMessage(`Bravo ${gameData.pseudo}, vous avez gagné !`);
+            } else {
+                setMessage(`${gameData.pseudo}, vous avez perdu !`);
+            }
+        } else if (gameData.currentPlayer) {
             if (gameData.currentPlayer.id !== gameData.socket.id) {
                 setMessage('C\'est au tour de votre adversaire de jouer.');
             } else {

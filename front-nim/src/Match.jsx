@@ -17,7 +17,7 @@ function Match({ id }) {
     } = useContext(DataGameContext);
 
     const {
-        listenDeco,
+        listenDecoMatch,
         listenSelectedMatch,
         listenUndisplayMatch,
         emitIdToUndisplayMatch,
@@ -30,7 +30,7 @@ function Match({ id }) {
     const [mustDisappear, setMustDisappear] = useState(false);
 
     useEffect(() => {
-        listenDeco(setMustDisappear, setIsActive);
+        listenDecoMatch(setMustDisappear, setIsActive);
         listenSelectedMatch(textRef, setIsActive);
         listenUndisplayMatch(textRef, setMustDisappear);
         emitIdToUndisplayMatch(textRef);

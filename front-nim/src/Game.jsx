@@ -17,6 +17,7 @@ function Game() {
         listenInfoGame,
         listenInfoTurn,
         listenWait,
+        listenUpdateNbMatch,
         listenPlay,
     } = useSocket(gameData.socket);
 
@@ -37,6 +38,7 @@ function Game() {
         listenPlay();
         listenInfoGame();
         listenInfoTurn();
+        listenUpdateNbMatch();
         setMessageTurn();
     }, [gameData.socket, gameData.currentPlayer]);
     return (
