@@ -4,18 +4,24 @@ import React, {
 import style from './Game.module.css';
 import Match from './Match';
 import { DataGameContext } from './contexts/DataGame';
+import useSocket from './hooks/useSocket';
 
 function Game() {
     const {
         gameData,
-        setPlayers,
-        setCurrentPlayer,
         setChoosenMatches,
-        setIndexPlayer,
         setMessage,
         setFinalChoice,
     } = useContext(DataGameContext);
 
+    const {
+        listenDeco,
+        listenInfoGame,
+        listenInfoTurn,
+        listenWait,
+        listenPlay,
+        emitUpdateTurn,
+    } = useSocket(gameData.socket);
     // const refs = [];
     // const getRef = () => {
     //   const ref = createRef(null);
@@ -50,26 +56,15 @@ function Game() {
             ids.push(match.getAttribute('id'));
         });
         setFinalChoice(ids);
-        gameData.socket.emit('reset_info_turn', {
-            adv: gameData.adv,
-            index: !gameData.indexPlayer,
-        });
+        emitUpdateTurn();
     };
     useEffect(() => {
-        gameData.socket.on('deco_adv', () => {
-            setChoosenMatches([]);
-            setFinalChoice([]);
-        });
-        gameData.socket.on('info_game', (data) => { // info about the game (partie)
-            setIndexPlayer(data.index);
-            setPlayers(data.players);
-            setCurrentPlayer(data.players[data.index]);
-        });
-        gameData.socket.on('info_turn', (data) => {
-            setIndexPlayer((data.index));
-            setCurrentPlayer(gameData.players[data.index]);
-            setChoosenMatches([]);
-        });
+        listenDeco();
+        listenWait();
+        listenPlay();
+        listenInfoGame();
+        listenInfoTurn();
+
         if (gameData.currentPlayer) {
             if (gameData.currentPlayer.id !== gameData.socket.id) {
                 setMessage('C\'est au tour de votre adversaire de jouer.');
@@ -92,7 +87,6 @@ function Game() {
                         key={x}
                         id={`${x}`}
                         onClicKMatch={handleClickMatch}
-
                     />
                 ))}
             </div>

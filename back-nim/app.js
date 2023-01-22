@@ -86,7 +86,7 @@ io.on('connection',(socket)=>{
     })
     socket.on('selectedMatch',(data)=>{
         console.log("Allumette sélectionnée",data)
-        socket.to(data.adv?.id).emit("actived",data)
+        io.to(socket.id).to(data.adv?.id).emit("actived",data)
     })
     socket.on('idToUndisplay',(data)=>{
         
