@@ -3,11 +3,14 @@ import style from './App.module.css';
 
 import io from 'socket.io-client'
 
-import {useEffect,useState} from "react"
+import {useEffect,useState,useContext} from "react"
 import Game from './Game';
-
-const socket =io.connect("http://localhost:5000"); 
+import {DataGameContext} from './contexts/DataGame';
+ 
 function App() {
+  const { gameData,setSocket} = useContext(DataGameContext);
+  // setSocket(socket);
+  console.log(gameData)
   const [message, setMessage]=useState("");
   const [adv, setAdv]=useState({});
   const [boardHidden, setboardHidden]=useState(true);
@@ -21,10 +24,10 @@ function App() {
       setMessage("Veuillez entrez un pseudo")
       return
     }
-    socket.emit("play",{pseudo});
+    gameData.socket.emit("play",{pseudo});
   }
   useEffect(() => {
-     socket.on("wait",(data)=>{
+     gameData.socket.on("wait",(data)=>{
       if(data.adv){ 
         setAdv(data.adv)
         setboardHidden(false);
@@ -38,11 +41,11 @@ function App() {
       
 
      })
-     socket.on("id",(data)=>{
+     gameData.socket.on("id",(data)=>{
       setMessage(data.msg)
       console.log("id",data.id)
      })
-     socket.on("deco_adv",(data)=>{
+     gameData.socket.on("deco_adv",(data)=>{
         alert(data.msg);
         setboardHidden(true);
         setAdv({})
@@ -50,12 +53,12 @@ function App() {
      })
      
      
-  }, [socket]);
+  }, [gameData.socket]);
   return (
     <div className="App">
       <h1>Jeu de Nim</h1>
      
-      <Game isHidden={boardHidden} socket={socket} adv={adv} />
+      <Game isHidden={boardHidden} socket={gameData.socket} adv={adv} />
 
       <label>Pseudo : </label>
       <input

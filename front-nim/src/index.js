@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import ErrorBoundary from './ErrorBoundary'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import DataGameContextProvider from './contexts/DataGame'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <App />
+  <ErrorBoundary>
+ <DataGameContextProvider>
+   <App />
+ </DataGameContextProvider>
+  
+</ErrorBoundary>
   // </React.StrictMode>
 );
 
