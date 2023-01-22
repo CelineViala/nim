@@ -56,25 +56,24 @@ io.on('connection',(socket)=>{
             advs[socket.id]=adv.id;
             advs[adv.id]=socket.id;
             
-            io.to(socket.id).to(adv.id).emit("info_turn",{ 
+            io.to(socket.id).to(adv.id).emit("info_game",{ 
                 players:[{pseudo:data.pseudo, id:socket.id},adv],
                 index:getRandomInt(2)
             })
-            io.to(socket.id).emit("wait",{
-                msg:"Vous jouez contre "+adv.pseudo,
+            io.to(socket.id).emit("play",{
+       
                 adv:adv
 
             });
-            io.to(adv.id).emit("wait",{
-                msg:"Vous jouez contre "+data.pseudo,
+            io.to(adv.id).emit("play",{
+           
                 adv:{pseudo:data.pseudo, id:socket.id}
             });
-
         }
         else
         {    
             free.push({pseudo:data.pseudo, id:socket.id});
-            console.log("wait", free)
+            
             io.to(socket.id).emit("wait",{msg:`En attente, le jeu commencera dès l'arrivée d'un second joueur.
             Pour inviter une de vos connaissances, envoyez-lui le lien suivant : http:www.test.fr`});
             
@@ -83,15 +82,15 @@ io.on('connection',(socket)=>{
 
     })
     socket.on('reset_info_turn',(data)=>{
-        io.to(data.adv.id).to(socket.id).emit("info_turn",{players:data.players,index:data.index})
+        io.to(data.adv.id).to(socket.id).emit("info_turn",{index:Number(data.index)})
     })
     socket.on('selectedMatch',(data)=>{
         console.log("Allumette sélectionnée",data)
-        socket.to(data.adv.id).emit("actived",data)
+        socket.to(data.adv?.id).emit("actived",data)
     })
     socket.on('idToUndisplay',(data)=>{
         
-        socket.to(data.adv.id).emit("undisplay",data.id)
+        io.to(data.adv?.id).to(socket.id).emit("undisplay",data.id)
     })
     socket.on("disconnect",()=>{
         

@@ -1,10 +1,11 @@
 .matches-box{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items:flex-end;
     gap: 2rem;
     margin-bottom: 5rem;
-     min-height:600px;
+    min-height:400px;
   }
   .match-select{
     margin-bottom: 5rem;
