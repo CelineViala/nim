@@ -30,7 +30,7 @@ function App() {
             <h1>Jeu de Nim</h1>
             <Game />
             <div className={`${!gameData.boardHidden && `${style.hidden}`}`}>
-                <label>Pseudo : </label>
+                <label>Pseudo :</label>
                 <input
                     placeholder="Entre un pseudo"
                     onChange={(event) => {
