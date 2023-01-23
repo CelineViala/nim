@@ -1,7 +1,7 @@
 import React, {
     useEffect, useContext,
 } from 'react';
-import style from './Game.module.css';
+import style from './css/Game.module.css';
 import Match from './Match';
 import { DataGameContext } from './contexts/DataGame';
 import useSocket from './hooks/useSocket';

@@ -3,7 +3,7 @@
    
     width:70px;
     height: 150px;
-    background-image: url('./m1.png');
+    background-image: url('../media/m1.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -12,31 +12,31 @@
 }
 @keyframes bgSlides {
     0% {
-          background-image: url("./m1.png");
+          background-image: url("../media/m1.png");
           visibility: visible;
           
     }
     20% {
-          background-image: url("./m2.png");
+          background-image: url("../media/m2.png");
           
     }
     
     35% {
-      background-image: url("./m3.png");
+      background-image: url("../media/m3.png");
       
     }
     
     55% {
-      background-image: url("./m4.png");
+      background-image: url("../media/m4.png");
       
     }
     
     65% {
-      background-image: url("./m5.png");
+      background-image: url("../media/m5.png");
       
     }
     80% {
-      background-image: url("./m6.png");
+      background-image: url("../media/m6.png");
       
     }
     100%{
@@ -51,14 +51,14 @@
 .start{
     width:70px;
     height: 150px;
-    background-image: url('./m6.png');
+    background-image: url('../media/m6.png');
     background-size: contain;
     background-repeat: no-repeat;
     visibility: hidden;
     animation: bgSlides 1s  ease-in;
 }
 .match-select{
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 .match:hover{
     width:80px;

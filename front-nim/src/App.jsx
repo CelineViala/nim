@@ -2,7 +2,7 @@
 import {
     React, useContext, useRef,
 } from 'react';
-import style from './App.module.css';
+import style from './css/App.module.css';
 import Game from './Game';
 import { DataGameContext } from './contexts/DataGame';
 import useSocket from './hooks/useSocket';
@@ -24,7 +24,7 @@ function App() {
             setMessage('Veuillez entrez un pseudo');
             return;
         }
-        console.log(inputRef);
+
         inputRef.current.value = '';
         emitPlay();
     };

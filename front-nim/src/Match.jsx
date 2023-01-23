@@ -6,7 +6,7 @@ import {
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import style from './Match.module.css';
+import style from './css/Match.module.css';
 import { DataGameContext } from './contexts/DataGame';
 
 import useSocket from './hooks/useSocket';
@@ -27,20 +27,20 @@ function Match({ id }) {
 
     const { handleClickMatch } = useGame();
 
-    const textRef = useRef(null);
+    const matchRef = useRef(null);
     const [isActive, setIsActive] = useState(false);
     const [mustDisappear, setMustDisappear] = useState(false);
 
     useEffect(() => {
         listenDecoMatch(setMustDisappear, setIsActive);
         listenStopGameMatch(setMustDisappear, setIsActive);
-        listenSelectedMatch(textRef, setIsActive);
-        listenUndisplayMatch(textRef, setMustDisappear);
-        emitIdToUndisplayMatch(textRef);
+        listenSelectedMatch(matchRef, setIsActive);
+        listenUndisplayMatch(matchRef, setMustDisappear);
+        emitIdToUndisplayMatch(matchRef);
     }, [gameData.socket, isActive, gameData.finalChoice]);
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <div id={id} ref={textRef} className={` ${isActive ? `${style['match-select']}` : ''} ${mustDisappear ? `${style.start}` : `${style.match}`}`} onClick={(e) => handleClickMatch(e, textRef, !isActive)} />
+        <div id={id} ref={matchRef} className={` ${isActive ? `${style['match-select']}` : ''} ${mustDisappear ? `${style.start}` : `${style.match}`}`} onClick={(e) => handleClickMatch(e, matchRef, !isActive)} />
 
     );
 }

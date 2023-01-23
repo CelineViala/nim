@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DataGameContext } from '../contexts/DataGame';
-import mp3 from '../allumette.mp3';
+import mp3 from '../media/allumette.mp3';
 
 function useSocket(socket) {
     const {
