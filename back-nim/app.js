@@ -11,6 +11,7 @@ const port = process.env.PORT ?? 3000;
 const server = http.createServer(app);
 app.use(express.static('./public'));
 const{Server}=require('socket.io');
+const { on } = require('events');
 app.use(cors());
 
 /**
@@ -50,7 +51,6 @@ io.on('connection',(socket)=>{
         let adv;
         if(free.length)
         {    
-
             adv= free.pop(0)
             advs[socket.id]=adv.id;
             advs[adv.id]=socket.id;
@@ -68,10 +68,21 @@ io.on('connection',(socket)=>{
         else
         {    
             free.push({pseudo:data.pseudo, id:socket.id});
-            io.to(socket.id).emit("wait",{msg:`En attente, le jeu commencera dès l'arrivée d'un second joueur.
-            Pour inviter une de vos connaissances, envoyez-lui le lien suivant : http:www.test.fr`});
+            io.to(socket.id).emit("wait",{msg:`En attente, le jeu commencera dès l'arrivée d'un second joueur.`});
         }
 
+    })
+    socket.on("stop",(data)=>{
+        delete advs[data.adv.id]
+        delete advs[socket.id]
+        io.to(data.adv.id).emit("stopGame",{msg:'Partie arrêtée par votre adversaire. Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
+        io.to(socket.id).emit("stopGame",{msg:'Vous avez arreté la partie. Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
+    })
+    socket.on("restart",(data)=>{
+        delete advs[data.adv.id]
+        delete advs[socket.id]
+        io.to(data.adv.id).to(socket.id).emit("restartGame",{msg:'Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
+        
     })
     socket.on("nbMatch",(data)=>{
         io.to(data.adv.id).to(socket.id).emit("updateNbMatch",{nb:data.nb})
@@ -88,8 +99,8 @@ io.on('connection',(socket)=>{
         io.to(data.adv?.id).to(socket.id).emit("undisplay",data.id)
     })
     socket.on("disconnect",()=>{
-        
-        socket.to(advs[socket.id]).emit("deco_adv",{msg:'Désolé votre adversaire a quitté la partie.'})
+        io.to(advs[socket.id]).emit("stopGame",{msg:'Partie arrêtée par votre adversaire'});
+        io.to(advs[advs[socket.id]]).emit("stopGame",{msg:'Vous avez arreté la partie'});
         delete advs[advs[socket.id]]
         delete advs[socket.id]
         free=free.filter(item=>item.id!==socket.id)

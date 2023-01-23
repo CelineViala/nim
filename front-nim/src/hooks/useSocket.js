@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { DataGameContext } from '../contexts/DataGame';
+import mp3 from '../allumette.mp3';
 
 function useSocket(socket) {
     const {
@@ -12,6 +13,7 @@ function useSocket(socket) {
         setNbMatch,
         setboardHidden,
         setWaiting,
+        resetGame,
         setMessage,
         setFinalChoice,
     } = useContext(DataGameContext);
@@ -90,11 +92,42 @@ function useSocket(socket) {
     const listenUpdateNbMatch = () => {
         socket.on('updateNbMatch', (data) => {
             setNbMatch(gameData.nbMatch + Number(data.nb));
+            const myAudio = document.createElement('audio');
+            myAudio.src = mp3;
+            myAudio.play();
         });
     };
     const emitPlay = () => {
         socket.emit('play', { pseudo: gameData.pseudo });
     };
+    const emitStopGame = () => {
+        socket.emit('stop', { adv: gameData.adv });
+    };
+    const emitRestartGame = () => {
+        socket.emit('restart', { adv: gameData.adv });
+    };
+    const listenStopGame = () => {
+        socket.on('stopGame', (data) => {
+            resetGame();
+            setMessage(data.msg);
+        });
+        socket.on('restartGame', (data) => {
+            resetGame();
+            setMessage(data.msg);
+        });
+    };
+
+    const listenStopGameMatch = (setMustDisappear, setIsActive) => {
+        socket.on('stopGame', () => {
+            setMustDisappear(false);
+            setIsActive(false);
+        });
+        socket.on('restartGame', () => {
+            setMustDisappear(false);
+            setIsActive(false);
+        });
+    };
+
     const emitNbMatch = (n) => {
         socket.emit('nbMatch', { adv: gameData.adv, nb: n });
     };
@@ -108,10 +141,14 @@ function useSocket(socket) {
         listenPlay,
         listenDecoMatch,
         emitPlay,
+        emitRestartGame,
         emitSelectedMatch,
+        listenStopGameMatch,
         emitIdToUndisplayMatch,
         listenSelectedMatch,
         listenUndisplayMatch,
+        listenStopGame,
+        emitStopGame,
         emitNbMatch,
     };
 }

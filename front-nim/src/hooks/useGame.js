@@ -40,9 +40,9 @@ function useGame() {
         gameData.choosenMatches.forEach((match) => {
             ids.push(match.getAttribute('id'));
         });
+
         setFinalChoice(ids);
         emitNbMatch(gameData.choosenMatches.length);
-
         emitUpdateTurn();
     };
     const handleClickMatch = (e, ref, isActive) => {
@@ -53,9 +53,9 @@ function useGame() {
     const setMessageTurn = () => {
         if (gameData.nbMatch === 10) { // the one who take the last match wins
             if (gameData.currentPlayer.id !== gameData.socket.id) {
-                setMessage(`Bravo ${gameData.pseudo}, vous avez gagné !`);
+                setMessage(`Bravo ${gameData.pseudo?.toUpperCase()}, vous avez gagné !`);
             } else {
-                setMessage(`${gameData.pseudo}, vous avez perdu !`);
+                setMessage(`${gameData.pseudo?.toUpperCase()}, vous avez perdu !`);
             }
         } else if (gameData.currentPlayer) {
             if (gameData.currentPlayer.id !== gameData.socket.id) {

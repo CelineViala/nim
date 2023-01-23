@@ -29,6 +29,7 @@ const DataGameContext = createContext({
     setWaiting: () => {},
     setboardHidden: () => {},
     setNbMatch: () => {},
+    resetGame: () => {},
 
 });
 export { DataGameContext };
@@ -53,6 +54,8 @@ const gameReducer = (state, action) => {
     if (action.value === undefined) { return currentState; }
 
     switch (action.type) {
+    case 'RESET':
+        return INITIAL_GAME;
     case 'SET_PLAYERS':
         return { ...state, players: action.value };
     case 'SET_NBMATCH':
@@ -156,6 +159,12 @@ function DataGameContextProvider({ children }) {
             value: nbMatch,
         });
     };
+    const resetGame = () => {
+        dispatch({
+            type: 'RESET',
+            value: null,
+        });
+    };
 
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     const value = {
@@ -172,6 +181,7 @@ function DataGameContextProvider({ children }) {
         setPseudo,
         setWaiting,
         setboardHidden,
+        resetGame,
     };
     return (
         <DataGameContext.Provider value={value}>

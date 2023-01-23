@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
     React, useEffect, useState, useContext, useRef,
@@ -7,7 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import style from './Match.module.css';
 import { DataGameContext } from './contexts/DataGame';
-import matchPicture from './match.png';
+
 import useSocket from './hooks/useSocket';
 import useGame from './hooks/useGame';
 
@@ -20,6 +21,7 @@ function Match({ id }) {
         listenDecoMatch,
         listenSelectedMatch,
         listenUndisplayMatch,
+        listenStopGameMatch,
         emitIdToUndisplayMatch,
     } = useSocket(gameData.socket);
 
@@ -31,13 +33,14 @@ function Match({ id }) {
 
     useEffect(() => {
         listenDecoMatch(setMustDisappear, setIsActive);
+        listenStopGameMatch(setMustDisappear, setIsActive);
         listenSelectedMatch(textRef, setIsActive);
         listenUndisplayMatch(textRef, setMustDisappear);
         emitIdToUndisplayMatch(textRef);
     }, [gameData.socket, isActive, gameData.finalChoice]);
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <img id={id} ref={textRef} className={`${style.match} ${isActive ? `${style['match-select']}` : ''} ${mustDisappear ? `${style.hidden}` : ''}`} src={matchPicture} alt="allumette" onClick={(e) => handleClickMatch(e, textRef, !isActive)} />
+        <div id={id} ref={textRef} className={` ${isActive ? `${style['match-select']}` : ''} ${mustDisappear ? `${style.start}` : `${style.match}`}`} onClick={(e) => handleClickMatch(e, textRef, !isActive)} />
 
     );
 }

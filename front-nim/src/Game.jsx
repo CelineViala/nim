@@ -18,12 +18,16 @@ function Game() {
         listenInfoTurn,
         listenWait,
         listenUpdateNbMatch,
+        listenStopGame,
+        emitStopGame,
+        emitRestartGame,
         listenPlay,
     } = useSocket(gameData.socket);
 
     const {
         handleValid,
         setMessageTurn,
+
     } = useGame();
     // const refs = [];
     // const getRef = () => {
@@ -33,6 +37,7 @@ function Game() {
     // };
 
     useEffect(() => {
+        listenStopGame();
         listenDeco();
         listenWait();
         listenPlay();
@@ -44,11 +49,13 @@ function Game() {
     return (
         <div className={`${style.game} ${gameData.boardHidden && `${style.hidden}`}`}>
             <h2>
-                Adversaire :
-                {gameData.adv?.pseudo}
+                {`Adversaire : ${(gameData.adv?.pseudo?.toUpperCase())}`}
             </h2>
             <h3>{gameData.message}</h3>
-            <button onClick={handleValid} type="button">VALIDER</button>
+            <button className={`${gameData.nbMatch === 10 && `${style.hidden}`}`} onClick={handleValid} type="button">VALIDER</button>
+            <button className={`${gameData.nbMatch === 10 && `${style.hidden}`}`} onClick={emitStopGame} type="button">ARRETER</button>
+
+            <button className={`${gameData.nbMatch < 10 && `${style.hidden}`}`} onClick={emitRestartGame} type="button">RETOUR</button>
             <div className={style['matches-box']}>
                 {Array.from(Array(10).keys(), (x) => (
                     <Match
