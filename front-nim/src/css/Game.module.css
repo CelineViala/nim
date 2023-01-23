@@ -1,15 +1,40 @@
 .matches-box{
+    
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items:flex-end;
     gap: 2rem;
-    margin-bottom: 5rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 
   }
-  .match-select{
-    margin-bottom: 5rem;
+.volume{
+  background-color: rgb(245, 245, 220);
+  display: inline-block;
+  margin:1em;
+  border-radius: 5px;
 }
+.adv{
+  display: inline;
+  font-size: smaller;
+  text-align: center;
+  background-color:rgb(245, 245, 220);
+  color: rgb(93,93,93);
+  padding:0.5em;
+  border-radius: 5px;
+  margin-bottom: 3rem;
+
+}
+.message{
+  text-align: center;
+  font-size:medium;
+  margin: 2rem;
+}
+.stopGame{
+  background-color: rgb(163, 155, 155);
+}
+
   .hidden{
     display:none;
   }

@@ -13,34 +13,35 @@
 @keyframes bgSlides {
     0% {
           background-image: url("../media/m1.png");
+          box-shadow: none;
           visibility: visible;
           
     }
     20% {
           background-image: url("../media/m2.png");
-          
+          box-shadow: none;
     }
     
     35% {
       background-image: url("../media/m3.png");
-      
+      box-shadow: none;
     }
     
     55% {
       background-image: url("../media/m4.png");
-      
+      box-shadow: none;
     }
     
     65% {
       background-image: url("../media/m5.png");
-      
+      box-shadow: none;
     }
     80% {
       background-image: url("../media/m6.png");
-      
+      box-shadow: none;
     }
     100%{
-        
+      box-shadow:none;
     }
 }
 @keyframes undisplay{
@@ -51,6 +52,7 @@
 .start{
     width:70px;
     height: 150px;
+    box-shadow: none;
     background-image: url('../media/m6.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -58,7 +60,9 @@
     animation: bgSlides 1s  ease-in;
 }
 .match-select{
-    margin-bottom: 2rem;
+  box-shadow: 10px 5px 5px  rgb(49, 48, 48);
+  border-radius: 25px;
+    
 }
 .match:hover{
     width:80px;

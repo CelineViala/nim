@@ -1,3 +1,19 @@
+*{
+  box-sizing: border-box;
+  color:rgb(245, 245, 220);
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+
+}
+
+.rule{
+  font-size: small;
+  background-color: rgb(49, 48, 48);
+  border-radius: 5px;
+  display: inline-block;
+  padding:1.2em;
+  margin:2em
+}
 
 body{
   background-color: rgb(93,93,93);
@@ -6,6 +22,43 @@ body{
 .hidden{
   display:none;
 }
-*{
-  box-sizing: border-box;
+
+button{
+  background-color: rgb(241, 187, 106);
+  color:rgb(93,93,93);
+  padding: 0.8em;
+  border-radius: 5px;
+  display: block;
+  min-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+}
+h1{
+   text-shadow: 10px 5px 5px rgb(49, 48, 48);
+}
+.title{
+  text-align: center;
+}
+.titleh2,.message{
+  font-size:medium;
+  margin: 1em;
+}
+
+.labelPseudo{
+
+  text-align: center;
+  margin: 1em;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+}
+.inputPseudo{
+
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  color: rgb(93,93,93);
+  padding:1em;
 }
