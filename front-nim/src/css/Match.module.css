@@ -20,28 +20,34 @@
     20% {
           background-image: url("../media/m2.png");
           box-shadow: none;
+          visibility: visible;
     }
     
     35% {
       background-image: url("../media/m3.png");
       box-shadow: none;
+      visibility: visible;
     }
     
     55% {
       background-image: url("../media/m4.png");
       box-shadow: none;
+      visibility: visible;
     }
     
     65% {
       background-image: url("../media/m5.png");
       box-shadow: none;
+      visibility: visible;
     }
     80% {
       background-image: url("../media/m6.png");
       box-shadow: none;
+      visibility: visible;
     }
     100%{
       box-shadow:none;
+      visibility: visible;
       background-image: none;
     }
 }
