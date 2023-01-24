@@ -57,6 +57,7 @@
     height: 150px;
     box-shadow: none;
     background-image: url('../media/m1.png');
+    visibility: visible;
     background-size: contain;
     background-repeat: no-repeat;
     animation: bgSlides 1s ease-in-out forwards;
