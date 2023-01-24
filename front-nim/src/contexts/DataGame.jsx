@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 
 const DataGameContext = createContext({
     gameData: {
+        n: 16,
         players: [],
         socket: null,
         currentPlayer: null,
@@ -35,6 +36,7 @@ const DataGameContext = createContext({
 export { DataGameContext };
 
 const INITIAL_GAME = {
+    n: 16,
     players: [],
     currentPlayer: null,
     socket: io.connect(process.env.REACT_APP_BACK_URL),

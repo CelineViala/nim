@@ -51,7 +51,7 @@ function useGame() {
         emitSelectedMatch(ref, isActive);
     };
     const setMessageTurn = () => {
-        if (gameData.nbMatch === 10) { // the one who take the last match wins
+        if (gameData.nbMatch === gameData.n) { // the one who take the last match wins
             if (gameData.currentPlayer.id !== gameData.socket.id) {
                 setMessage(`Bravo ${gameData.pseudo?.toUpperCase()}, vous avez gagné !`);
             } else {

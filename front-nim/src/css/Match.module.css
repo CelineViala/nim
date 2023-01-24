@@ -64,8 +64,8 @@
     animation: bgSlides 1s ease-in-out forwards;
 }
 .match-select{
-  box-shadow: 10px 5px 5px  rgb(49, 48, 48);
-  border-radius: 25px;
+  box-shadow: 1px 1px 5px rgb(254 199 125);
+  border-radius: 11px;
     
 }
 .match:hover{

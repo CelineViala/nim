@@ -54,19 +54,19 @@ function Game() {
             </h2>
             <h3 className={style.message}>{gameData.message}</h3>
             <img src={volumePict} alt="volume" width={30} />
-            <button className={`${gameData.nbMatch === 10 && `${style.hidden}`}`} onClick={handleValid} type="button">VALIDER</button>
+            <button className={`${gameData.nbMatch === gameData.n && `${style.hidden}`}`} onClick={handleValid} type="button">VALIDER</button>
 
-            <button className={`${gameData.nbMatch < 10 && `${style.hidden}`}`} onClick={emitRestartGame} type="button">RETOUR</button>
+            <button className={`${gameData.nbMatch < gameData.n && `${style.hidden}`}`} onClick={emitRestartGame} type="button">RETOUR</button>
 
             <div className={style['matches-box']}>
-                {Array.from(Array(10).keys(), (x) => (
+                {Array.from(Array(gameData.n).keys(), (x) => (
                     <Match
                         key={x}
                         id={`${x}`}
                     />
                 ))}
             </div>
-            <button className={`${style.stopGame} ${gameData.nbMatch === 10 && `${style.hidden}`}`} onClick={emitStopGame} type="button">ARRETER LA PARTIE</button>
+            <button className={`${style.stopGame} ${gameData.nbMatch === gameData.n && `${style.hidden}`}`} onClick={emitStopGame} type="button">ARRETER LA PARTIE</button>
 
         </div>
 
