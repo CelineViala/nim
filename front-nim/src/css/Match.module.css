@@ -47,7 +47,7 @@
     }
     100%{
       box-shadow:none;
-      visibility: visible;
+      visibility: hidden;
       background-image: none;
     }
 }
@@ -59,8 +59,7 @@
     background-image: url('../media/m1.png');
     background-size: contain;
     background-repeat: no-repeat;
-    visibility: hidden;
-    animation: bgSlides 1s ease-in-out;
+    animation: bgSlides 1s ease-in-out forwards;
 }
 .match-select{
   box-shadow: 10px 5px 5px  rgb(49, 48, 48);
