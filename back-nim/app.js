@@ -12,7 +12,7 @@ const server = http.createServer(app);
 app.use(express.static('./public'));
 const{Server}=require('socket.io');
 const { on } = require('events');
-app.use(cors());
+app.use(cors(process.env.CORS_DOMAIN));
 
 /**
  * @type {Socket}
