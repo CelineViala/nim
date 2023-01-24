@@ -92,9 +92,12 @@ function useSocket(socket) {
     const listenUpdateNbMatch = () => {
         socket.on('updateNbMatch', (data) => {
             setNbMatch(gameData.nbMatch + Number(data.nb));
-            const myAudio = document.createElement('audio');
-            myAudio.src = mp3;
-            myAudio.play();
+            if (gameData.volume) {
+                console.log(gameData.volume);
+                const myAudio = document.createElement('audio');
+                myAudio.src = mp3;
+                myAudio.play();
+            }
         });
     };
     const emitPlay = () => {

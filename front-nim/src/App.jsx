@@ -35,7 +35,7 @@ function App() {
 
             <h2 className={`${style.title} ${style.titleh2} ${(!gameData.waiting && gameData.boardHidden) ? `${style.hidden}` : ''}`}>{`Bienvenue ${gameData.pseudo?.toUpperCase()}`}</h2>
             <p className={style.rule}>
-                Regle: Retirer de une à 3 allumettes.
+                Regle: Retirer de 1 à 3 allumettes.
                 Celui qui prend la dernière allumette disponible gagne.
 
             </p>

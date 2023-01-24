@@ -10,6 +10,7 @@ const DataGameContext = createContext({
         currentPlayer: null,
         indexPlayer: null,
         message: '',
+        volume: false,
         nbMatch: 0,
         adv: {},
         pseudo: '',
@@ -31,6 +32,7 @@ const DataGameContext = createContext({
     setboardHidden: () => {},
     setNbMatch: () => {},
     resetGame: () => {},
+    setVolume: () => {},
 
 });
 export { DataGameContext };
@@ -43,6 +45,7 @@ const INITIAL_GAME = {
     indexPlayer: null,
     message: '',
     nbMatch: 0,
+    volume: false,
     boardHidden: true,
     adv: {},
     pseudo: '',
@@ -82,6 +85,8 @@ const gameReducer = (state, action) => {
         return { ...state, waiting: action.value };
     case 'SET_BOARD_HIDDEN':
         return { ...state, boardHidden: action.value };
+    case 'SET_VOLUME':
+        return { ...state, volume: action.value };
     default:
         return currentState;
     }
@@ -167,6 +172,12 @@ function DataGameContextProvider({ children }) {
             value: null,
         });
     };
+    const setVolume = (volume) => {
+        dispatch({
+            type: 'SET_VOLUME',
+            value: volume,
+        });
+    };
 
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     const value = {
@@ -175,6 +186,7 @@ function DataGameContextProvider({ children }) {
         setCurrentPlayer,
         setChoosenMatches,
         setIndexPlayer,
+        setVolume,
         setSocket,
         setMessage,
         setNbMatch,

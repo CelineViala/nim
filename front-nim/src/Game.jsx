@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {
     useEffect, useContext,
 } from 'react';
@@ -7,10 +9,12 @@ import { DataGameContext } from './contexts/DataGame';
 import useSocket from './hooks/useSocket';
 import useGame from './hooks/useGame';
 import volumePict from './media/volume.png';
+import mutePict from './media/volume2.png';
 
 function Game() {
     const {
         gameData,
+        setVolume,
     } = useContext(DataGameContext);
 
     const {
@@ -46,14 +50,24 @@ function Game() {
         listenInfoTurn();
         listenUpdateNbMatch();
         setMessageTurn();
-    }, [gameData.socket, gameData.currentPlayer]);
+        console.log(gameData.volume);
+    }, [gameData.socket, gameData.currentPlayer, gameData.volume]);
     return (
         <div className={`${style.game} ${gameData.boardHidden && `${style.hidden}`}`}>
             <h2 className={style.adv}>
                 {`Votre adversaire : ${(gameData.adv?.pseudo?.toUpperCase())}`}
             </h2>
             <h3 className={style.message}>{gameData.message}</h3>
-            <img src={volumePict} alt="volume" width={30} />
+            <img
+                src={gameData.volume ? volumePict : mutePict}
+                alt="volume"
+                width={30}
+                onClick={() => {
+                    console.log(gameData.volume);
+                    setVolume(!gameData.volume);
+                    console.log(gameData.volume);
+                }}
+            />
             <button className={`${gameData.nbMatch === gameData.n && `${style.hidden}`}`} onClick={handleValid} type="button">VALIDER</button>
 
             <button className={`${gameData.nbMatch < gameData.n && `${style.hidden}`}`} onClick={emitRestartGame} type="button">RETOUR</button>
