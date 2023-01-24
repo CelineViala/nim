@@ -19,7 +19,7 @@ app.use(cors());
  */
 const io=new Server(server, {
     cors:{
-        origin :'*',
+        origin :process.env.CORS_DOMAIN,
         methods: ["GET", "POST"],
       
     }
