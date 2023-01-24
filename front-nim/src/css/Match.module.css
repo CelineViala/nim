@@ -42,6 +42,7 @@
     }
     100%{
       box-shadow:none;
+      background-image: none;
     }
 }
 
@@ -49,11 +50,11 @@
     width:70px;
     height: 150px;
     box-shadow: none;
-    background-image: url('../media/m6.png');
+    background-image: url('../media/m1.png');
     background-size: contain;
     background-repeat: no-repeat;
     visibility: hidden;
-    animation: bgSlides 1s  linear;
+    animation: bgSlides 1s ease-in-out;
 }
 .match-select{
   box-shadow: 10px 5px 5px  rgb(49, 48, 48);
