@@ -37,7 +37,7 @@ export { DataGameContext };
 const INITIAL_GAME = {
     players: [],
     currentPlayer: null,
-    socket: io.connect('http://localhost:5000'),
+    socket: io.connect('https://nim-celine.herokuapp.com'),
     indexPlayer: null,
     message: '',
     nbMatch: 0,
