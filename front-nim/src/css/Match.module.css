@@ -53,7 +53,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     visibility: hidden;
-    animation: bgSlides 1s  ease-in;
+    animation: bgSlides 2s  ease-in;
 }
 .match-select{
   box-shadow: 10px 5px 5px  rgb(49, 48, 48);
