@@ -36,7 +36,7 @@ function useGame() {
     };
     const handleValid = () => {
         if (!gameData.choosenMatches.length) return; // zero match selected
-        const ids = [...gameData.finalChoice]; // id of matches that have to disappear
+        const ids = []; // id of matches that have to disappear
         gameData.choosenMatches.forEach((match) => {
             ids.push(match.getAttribute('id'));
         });

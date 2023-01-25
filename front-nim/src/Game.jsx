@@ -8,8 +8,8 @@ import Match from './Match';
 import { DataGameContext } from './contexts/DataGame';
 import useSocket from './hooks/useSocket';
 import useGame from './hooks/useGame';
-import volumePict from './media/volume.png';
-import mutePict from './media/volume2.png';
+import volumePict from './media/volume2.png';
+import mutePict from './media/volume.png';
 
 function Game() {
     const {
@@ -40,7 +40,9 @@ function Game() {
     //   refs.push(ref);
     //   return ref;
     // };
-
+    const handleVolume = () => {
+        setVolume(!gameData.volume);
+    };
     useEffect(() => {
         listenStopGame();
         listenDeco();
@@ -50,24 +52,26 @@ function Game() {
         listenInfoTurn();
         listenUpdateNbMatch();
         setMessageTurn();
-        console.log(gameData.volume);
-    }, [gameData.socket, gameData.currentPlayer, gameData.volume]);
+        return () => {
+            gameData.socket.off('stopGame');
+            gameData.socket.off('deco_adv');
+            gameData.socket.off('info_turn');
+            gameData.socket.off('updateNbMatch');
+            gameData.socket.off('info_game');
+            gameData.socket.off('play');
+            gameData.socket.off('wait');
+        };
+    }, [gameData.indexPlayer, gameData.volume]);
     return (
         <div className={`${style.game} ${gameData.boardHidden && `${style.hidden}`}`}>
             <h2 className={style.adv}>
                 {`Votre adversaire : ${(gameData.adv?.pseudo?.toUpperCase())}`}
             </h2>
             <h3 className={style.message}>{gameData.message}</h3>
-            <img
-                src={gameData.volume ? volumePict : mutePict}
-                alt="volume"
-                width={30}
-                onClick={() => {
-                    console.log(gameData.volume);
-                    setVolume(!gameData.volume);
-                    console.log(gameData.volume);
-                }}
-            />
+            <div className={style.volumeContainer}>
+                <span className={style.volumeText}>{`Volume ${gameData.volume ? 'on' : 'off'}`}</span>
+                <img src={gameData.volume ? volumePict : mutePict} alt="volume" width={30} onClick={handleVolume} />
+            </div>
             <button className={`${gameData.nbMatch === gameData.n && `${style.hidden}`}`} onClick={handleValid} type="button">VALIDER</button>
 
             <button className={`${gameData.nbMatch < gameData.n && `${style.hidden}`}`} onClick={emitRestartGame} type="button">RETOUR</button>
@@ -81,9 +85,7 @@ function Game() {
                 ))}
             </div>
             <button className={`${style.stopGame} ${gameData.nbMatch === gameData.n && `${style.hidden}`}`} onClick={emitStopGame} type="button">ARRETER LA PARTIE</button>
-
         </div>
-
     );
 }
 

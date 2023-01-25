@@ -37,7 +37,12 @@ function Match({ id }) {
         listenSelectedMatch(matchRef, setIsActive);
         listenUndisplayMatch(matchRef, setMustDisappear);
         emitIdToUndisplayMatch(matchRef);
-    }, [gameData.socket, isActive, gameData.finalChoice]);
+        return () => {
+            gameData.socket.off('undisplay');
+            gameData.socket.off('stopGameMatch');
+            gameData.socket.off('actived');
+        };
+    }, [gameData.finalChoice]);
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <div id={id} ref={matchRef} className={` ${isActive ? `${style['match-select']}` : ''} ${mustDisappear ? `${style.start}` : `${style.match}`}`} onClick={(e) => handleClickMatch(e, matchRef, !isActive)} />

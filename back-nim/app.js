@@ -76,12 +76,14 @@ io.on('connection',(socket)=>{
         delete advs[data.adv.id]
         delete advs[socket.id]
         io.to(data.adv.id).emit("stopGame",{msg:'Partie arrêtée par votre adversaire. Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
+        io.to(data.adv.id).to(socket.id).emit("stopGameMatch");
         io.to(socket.id).emit("stopGame",{msg:'Vous avez arreté la partie. Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
     })
     socket.on("restart",(data)=>{
         delete advs[data.adv.id]
         delete advs[socket.id]
         io.to(data.adv.id).to(socket.id).emit("restartGame",{msg:'Pour rejouer, veuillez entrer un pseudo puis cliquez sur Jouer'});
+        io.to(data.adv.id).to(socket.id).emit("restartGameMatch");
         
     })
     socket.on("nbMatch",(data)=>{
@@ -98,6 +100,7 @@ io.on('connection',(socket)=>{
         
         io.to(data.adv?.id).to(socket.id).emit("undisplay",data.id)
     })
+    
     socket.on("disconnect",()=>{
         io.to(advs[socket.id]).emit("stopGame",{msg:'Partie arrêtée par votre adversaire'});
         io.to(advs[advs[socket.id]]).emit("stopGame",{msg:'Vous avez arreté la partie'});

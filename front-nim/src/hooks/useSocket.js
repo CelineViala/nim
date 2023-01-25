@@ -31,6 +31,7 @@ function useSocket(socket) {
     };
     const listenDecoMatch = (setMustDisappearMatch, setIsActiveMatch) => {
         socket.on('deco_adv', () => {
+            resetGame();
             if (setMustDisappearMatch) setMustDisappearMatch(false);
             if (setIsActiveMatch) setIsActiveMatch(false);
         });
@@ -42,6 +43,7 @@ function useSocket(socket) {
             setCurrentPlayer(data.players[data.index]);
         });
     };
+
     const listenInfoTurn = () => {
         socket.on('info_turn', (data) => {
             setIndexPlayer((data.index));
@@ -93,7 +95,6 @@ function useSocket(socket) {
         socket.on('updateNbMatch', (data) => {
             setNbMatch(gameData.nbMatch + Number(data.nb));
             if (gameData.volume) {
-                console.log(gameData.volume);
                 const myAudio = document.createElement('audio');
                 myAudio.src = mp3;
                 myAudio.play();
@@ -116,16 +117,17 @@ function useSocket(socket) {
         });
         socket.on('restartGame', (data) => {
             resetGame();
+            socket.emit('restartGameMatch');
             setMessage(data.msg);
         });
     };
 
     const listenStopGameMatch = (setMustDisappear, setIsActive) => {
-        socket.on('stopGame', () => {
+        socket.on('stopGameMatch', () => {
             setMustDisappear(false);
             setIsActive(false);
         });
-        socket.on('restartGame', () => {
+        socket.on('restartGameMatch', () => {
             setMustDisappear(false);
             setIsActive(false);
         });
