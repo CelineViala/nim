@@ -104,6 +104,7 @@ io.on('connection',(socket)=>{
     socket.on("disconnect",()=>{
         io.to(advs[socket.id]).emit("stopGame",{msg:'Partie arrêtée par votre adversaire'});
         io.to(advs[advs[socket.id]]).emit("stopGame",{msg:'Vous avez arreté la partie'});
+        io.to(advs[socket.id]).to(advs[advs[socket.id]]).emit("stopGameMatch");
         delete advs[advs[socket.id]]
         delete advs[socket.id]
         free=free.filter(item=>item.id!==socket.id)
