@@ -1,34 +1,28 @@
-const express = require('express');
+
 const http = require('http');
-const app = express();
-const cors=require('cors');
-
-
 require('dotenv').config();
-
 const port = process.env.PORT ?? 3000;
+const server = http.createServer();
+server.on('request', (request, response) => {
+    return response.end('ok'); 
+})
 
-const server = http.createServer(app);
-app.use(express.static('./public'));
+
 const{Server}=require('socket.io');
-const { on } = require('events');
-app.use(cors(process.env.CORS_DOMAIN));
 
-/**
- * @type {Socket}
- */
-const io=new Server(server, {
-    cors:{
-        origin :process.env.CORS_DOMAIN,
-        methods: ["GET", "POST"],
-      
-    }
-});
-app.get('/',(req,res)=> res.send('ok'));
 
 server.listen(port, () => {
     console.log(`Listening on ${port}`);
 });
+
+const io=new Server(server, {
+    cors:{
+        origin :process.env.CORS_DOMAIN,
+        methods: ["GET", "POST"],
+    }
+});
+
+
 
 const advs={
 
@@ -47,7 +41,7 @@ io.on('connection',(socket)=>{
     
     
     socket.on('play',(data)=>{
-        console.log(socket.id," veut jouer")
+        
         let adv;
         if(free.length)
         {    
@@ -93,7 +87,6 @@ io.on('connection',(socket)=>{
         io.to(data.adv.id).to(socket.id).emit("info_turn",{index:Number(data.index)})
     })
     socket.on('selectedMatch',(data)=>{
-        console.log("Allumette sélectionnée",data)
         io.to(socket.id).to(data.adv?.id).emit("actived",data)
     })
     socket.on('idToUndisplay',(data)=>{
