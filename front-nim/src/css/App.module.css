@@ -8,7 +8,8 @@
 
 .rule{
   font-size: small;
-  background-color: rgb(49, 48, 48);
+  background-color: rgb(241, 187, 106);
+  color: rgb(49, 48, 48);
   border-radius: 5px;
   display: inline-block;
   padding:1.2em;
